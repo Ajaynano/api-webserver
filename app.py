@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from dotenv import load_dotenv
 import requests
 import os
@@ -29,12 +29,17 @@ HEADERS = {
 
 @app.route('/api/products', methods=['GET'])
 def get_products():
-    response = requests.get('https://dummyjson.com/products', headers=HEADERS)
+    limit = request.args.get('limit', 10)
+    skip = request.args.get('skip', 0)
+    response = requests.get(f'https://dummyjson.com/products?limit={limit}&skip={skip}', headers=HEADERS)
     products = response.json()
     return jsonify(products)
 
-@app.route('/api/products/<int:id>', methods=['GET'])
+@app.route('/api/products/<id>', methods=['GET'])
 def get_product_by_id(id):
+    if not id.isdigit():
+        return jsonify({'error': 'Please enter a valid integer'}), 400
+    
     response = requests.get(f'https://dummyjson.com/products/{id}', headers=HEADERS)
     product = response.json()
     return jsonify(product)
