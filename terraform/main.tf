@@ -15,8 +15,8 @@ resource "kubernetes_secret" "test" {
   }
 
   data = {
-    username = "<username>"
-    password = "<password>"
+    username = "emilys"
+    password = "emilyspass"
   }
 }
 
