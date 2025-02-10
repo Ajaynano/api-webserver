@@ -4,3 +4,5 @@
 # how to access the application 
 1. we are using Nodeport we can directly access the app with localhost:nodeport/api/products
 2. if we use ingress controller we can use localhost:80/api/products
+
+# to configure the cluster you need to use the nodeport ip and port 80 to set up the datasource 
